@@ -20,8 +20,8 @@ services:
       - 127.0.0.1:3030:3030
     environment: &langfuse-worker-env
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/postgres # CHANGEME
-      SALT: "mysalt" # CHANGEME
-      ENCRYPTION_KEY: "0000000000000000000000000000000000000000000000000000000000000000" # CHANGEME: generate via `openssl rand -hex 32`
+      SALT: "5956782e629e56327c9bbb3e2fc6d8f57497a09ac6292c2db1d8599b3f5e552d" # CHANGEME
+      ENCRYPTION_KEY: "c33fbc72445bb57e95037c465a08dfaf6edc7fdf3d899f0bb9415ee444c004f1" # CHANGEME: generate via `openssl rand -hex 32`
       TELEMETRY_ENABLED: ${TELEMETRY_ENABLED:-true}
       LANGFUSE_ENABLE_EXPERIMENTAL_FEATURES: ${LANGFUSE_ENABLE_EXPERIMENTAL_FEATURES:-true}
       CLICKHOUSE_MIGRATION_URL: ${CLICKHOUSE_MIGRATION_URL:-clickhouse://clickhouse:9000}
@@ -74,7 +74,7 @@ services:
     environment:
       <<: *langfuse-worker-env
       NEXTAUTH_URL: http://localhost:3000
-      NEXTAUTH_SECRET: mysecret # CHANGEME
+      NEXTAUTH_SECRET: 89bfd1d3f1fd3154372cda583828d50e37308d7bbb3973b6a95bf4a13860ff2e # CHANGEME
       LANGFUSE_INIT_ORG_ID: ${LANGFUSE_INIT_ORG_ID:-}
       LANGFUSE_INIT_ORG_NAME: ${LANGFUSE_INIT_ORG_NAME:-}
       LANGFUSE_INIT_PROJECT_ID: ${LANGFUSE_INIT_PROJECT_ID:-}
