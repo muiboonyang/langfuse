@@ -19,6 +19,7 @@ services:
     ports:
       - 127.0.0.1:3030:3030
     environment: &langfuse-worker-env
+      PLAIN_AUTHENTICATION_SECRET: 8efccc411ef2d0778fc46c2c4287b4d8769789be57e82115f2622aaae055d296
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/postgres # CHANGEME
       SALT: "5956782e629e56327c9bbb3e2fc6d8f57497a09ac6292c2db1d8599b3f5e552d" # CHANGEME
       ENCRYPTION_KEY: "c33fbc72445bb57e95037c465a08dfaf6edc7fdf3d899f0bb9415ee444c004f1" # CHANGEME: generate via `openssl rand -hex 32`
