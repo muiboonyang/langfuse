@@ -124,10 +124,21 @@ RUN if [ -n "$NEXT_PUBLIC_LANGFUSE_CLOUD_REGION" ]; then \
         npm install --no-package-lock --no-save dd-trace@5.36.0; \
     fi
 
-RUN MIGRATE_TARGET_ARCH=$(echo ${TARGETPLATFORM:-linux/amd64} | sed 's/\//-/g') && \
-    wget -q -O- https://github.com/golang-migrate/migrate/releases/download/v4.18.3/migrate.$MIGRATE_TARGET_ARCH.tar.gz | tar xvz && \
-    mv migrate /usr/bin/migrate
+#RUN MIGRATE_TARGET_ARCH=$(echo ${TARGETPLATFORM:-linux/amd64} | sed 's/\//-/g') && \
+#    wget -q -O- https://github.com/golang-migrate/migrate/releases/download/v4.18.3/migrate.$MIGRATE_TARGET_ARCH.tar.gz | tar xvz && \
+#    mv migrate /usr/bin/migrate
 
+RUN set -ex; \
+    case "$TARGETPLATFORM" in \
+      "linux/amd64"*) PLATFORM="linux-amd64" ;; \
+      "linux/arm64"*) PLATFORM="linux-arm64" ;; \
+      "linux/arm/v7"*) PLATFORM="linux-armv7" ;; \
+      "linux/386"*) PLATFORM="linux-386" ;; \
+      *) echo "Unsupported TARGETPLATFORM: $TARGETPLATFORM" && exit 1 ;; \
+    esac; \
+    wget -q -O- https://github.com/golang-migrate/migrate/releases/download/v4.18.3/migrate.${PLATFORM}.tar.gz | tar xvz && \
+    mv migrate /usr/bin/migrate
+    
 COPY --from=builder --chown=nextjs:nodejs /app/web/next.config.mjs .
 COPY --from=builder --chown=nextjs:nodejs /app/web/package.json .
 
