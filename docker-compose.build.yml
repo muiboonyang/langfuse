@@ -18,6 +18,7 @@ services:
     ports:
       - "3000:3000"
     environment: &langfuse-web-env
+      PLAIN_AUTHENTICATION_SECRET: 8efccc411ef2d0778fc46c2c4287b4d8769789be57e82115f2622aaae055d296
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/postgres
       NEXTAUTH_SECRET: 89bfd1d3f1fd3154372cda583828d50e37308d7bbb3973b6a95bf4a13860ff2e
       SALT: "5956782e629e56327c9bbb3e2fc6d8f57497a09ac6292c2db1d8599b3f5e552d"
