@@ -1,5 +1,19 @@
 FROM --platform=${TARGETPLATFORM:-linux/amd64} node:20-alpine AS alpine
 
+###################################################
+
+FROM alpine AS fetcher
+RUN apk add --no-cache git
+
+# pin to a commit, tag, or branch
+ARG REPO_REF=main 
+ARG REPO_URL=https://github.com/langfuse/langfuse.git
+
+WORKDIR /repo
+RUN git clone $REPO_URL . && git checkout $REPO_REF
+
+###################################################
+
 # It's important to update the index before installing packages to ensure you're getting the latest versions.
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk update && apk upgrade --no-cache libcrypto3 libssl3 libc6-compat busybox ssl_client
@@ -15,7 +29,13 @@ FROM --platform=${TARGETPLATFORM:-linux/amd64} base AS pruner
 
 WORKDIR /app
 
-COPY . .
+# Copy local files and directories from your build context 
+#COPY . .
+
+# Copy content from fetcher stage
+COPY --from=fetcher /repo/web /app
+COPY --from=fetcher /repo/worker /app
+
 RUN turbo prune --scope=web --docker
 
 FROM --platform=${TARGETPLATFORM:-linux/amd64} base AS builder
