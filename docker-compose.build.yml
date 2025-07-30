@@ -5,6 +5,7 @@ services:
       context: .
       args:
         - NEXT_PUBLIC_LANGFUSE_CLOUD_REGION=${NEXT_PUBLIC_LANGFUSE_CLOUD_REGION}
+        - NEXT_PUBLIC_BASE_PATH=/doc-chat/langfuse # Add custom base path
     depends_on: &langfuse-depends-on
       postgres:
         condition: service_healthy
@@ -18,10 +19,12 @@ services:
       - "3000:3000"
     environment: &langfuse-web-env
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/postgres
-      NEXTAUTH_SECRET: mysecret
-      SALT: mysalt
-      ENCRYPTION_KEY: "0000000000000000000000000000000000000000000000000000000000000000" # generate via `openssl rand -hex 32`
-      NEXTAUTH_URL: http://localhost:3000
+      NEXTAUTH_SECRET: 89bfd1d3f1fd3154372cda583828d50e37308d7bbb3973b6a95bf4a13860ff2e
+      SALT: "5956782e629e56327c9bbb3e2fc6d8f57497a09ac6292c2db1d8599b3f5e552d"
+      ENCRYPTION_KEY: "c33fbc72445bb57e95037c465a08dfaf6edc7fdf3d899f0bb9415ee444c004f1" # generate via `openssl rand -hex 32`
+      NEXT_PUBLIC_BASE_PATH: /doc-chat/langfuse
+      NEXTAUTH_URL: http://localhost:3040/doc-chat/langfuse/api/auth
+#      NEXTAUTH_URL: http://localhost:3000
       TELEMETRY_ENABLED: ${TELEMETRY_ENABLED:-true}
       LANGFUSE_ENABLE_EXPERIMENTAL_FEATURES: ${LANGFUSE_ENABLE_EXPERIMENTAL_FEATURES:-false}
       LANGFUSE_INIT_ORG_ID: ${LANGFUSE_INIT_ORG_ID:-}
