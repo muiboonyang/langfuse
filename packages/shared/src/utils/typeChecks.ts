@@ -1,6 +1,6 @@
-import { z } from "zod";
+import {z} from "src/utils/zod";
 
 export const isPresent = <T>(value: T | null | undefined): value is T =>
-  value !== null && value !== undefined && value !== "";
+    value !== null && value !== undefined && value !== "";
 
-export const stringDateTime = z.string().datetime({ offset: true }).nullish();
+export const stringDateTime = z.string().datetime({offset: true}).nullish();

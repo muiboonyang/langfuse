@@ -16,7 +16,7 @@ export * from "./utils/objects";
 export * from "./utils/typeChecks";
 export * from "./features/entitlements/plans";
 export * from "./interfaces/rate-limits";
-export { env } from "./env";
+export {env} from "./env";
 
 // llm api
 export * from "./server/llm/types";
@@ -36,9 +36,9 @@ export * from "./features/comments/types";
 
 // export db types only
 export * from "@prisma/client";
-export { type DB } from "../prisma/generated/types";
+export {type DB} from "../prisma/generated/types";
 
 // errors
-export * from "./errors/index";
+export * from "./errors";
 
 export * from "./utils/environment";
