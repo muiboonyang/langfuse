@@ -3,7 +3,7 @@ version: "3.5"
 services:
   server:
     build:
-      dockerfile: ./web/Dockerfile
+      dockerfile: web/Dockerfile
       context: .
       args:
         - NEXT_PUBLIC_LANGFUSE_CLOUD_REGION=${NEXT_PUBLIC_LANGFUSE_CLOUD_REGION}
@@ -31,7 +31,7 @@ services:
       - LANGFUSE_INIT_USER_PASSWORD=${LANGFUSE_INIT_USER_PASSWORD:-}
     restart: always
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/api/public/health"]
+      test: [ "CMD", "curl", "-f", "http://localhost:3000/api/public/health" ]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -58,7 +58,7 @@ services:
       - REDIS_AUTH=${REDIS_AUTH:-myredissecret}
     restart: always
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3030/api/health"]
+      test: [ "CMD", "curl", "-f", "http://localhost:3030/api/health" ]
       interval: 30s
       timeout: 10s
       retries: 3
