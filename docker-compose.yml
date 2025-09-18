@@ -28,7 +28,7 @@ services:
     image: postgres
     restart: always
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 3s
       timeout: 3s
       retries: 10
@@ -37,7 +37,8 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=postgres
     ports:
-      - 5432:5432
+      #      - 5432:5432
+      - 5433:5432 # EDITED
     volumes:
       - database_data:/var/lib/postgresql/data
 
